@@ -10,3 +10,13 @@ of writing your own CSS rules. For a full list of class names in the theme
 refer to http://docs.nativescript.org/ui/theme.
 */
 @import 'nativescript-theme-core/css/purple.css';
+
+.border {
+    border-width: 1;
+    border-color: #9f9f9f;
+    border-radius: 5;
+}
+
+.no-border {
+    border-width: 0;
+}

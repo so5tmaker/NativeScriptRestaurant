@@ -1,9 +1,9 @@
 <ActionBar title="Menu" class="action-bar">
 </ActionBar>
 <StackLayout class="page">
-    <ListView [items]="dishes" class="list-group" *ngIf="dishes">
+    <ListView [items]="dishes" class="list-group" *ngIf="dishes" height="1024">
         <ng-template let-dish="item">
-            <StackLayout orientation="horizontal" class="list-group-item">
+            <StackLayout orientation="horizontal" class="list-group-item" [nsRouterLink]="['/dishdetail', dish.id]">
                 <Image row="0" col="0" rowSpan="2" height="108" width="108" [src]="BaseURL + dish.image" class="thumb p-16"></Image>
                 <GridLayout class="list-group-item" rows="auto *" columns="*">
                     <Label row="0" col="0" [text]="dish.name" class="list-group-item-heading"></Label>

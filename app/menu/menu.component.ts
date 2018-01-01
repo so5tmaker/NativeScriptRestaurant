@@ -9,8 +9,8 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  dishes: Dish[];
 
+  dishes: Dish[];
   errMess: string;
 
   constructor(private dishService: DishService,
