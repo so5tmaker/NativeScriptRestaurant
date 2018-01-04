@@ -1,12 +1,13 @@
 <ActionBar title="Menu" class="action-bar">
 </ActionBar>
+
 <RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
     <ScrollView tkDrawerContent class="sidedrawer-left">
         <StackLayout horizontalAlign="left">
             <drawer-content></drawer-content>
         </StackLayout>
     </ScrollView>
-    <StackLayout class="page">
+    <StackLayout tkMainContent class="page">
         <ListView [items]="dishes" class="list-group" *ngIf="dishes" height="1024">
             <ng-template let-dish="item">
                 <StackLayout orientation="horizontal" class="list-group-item" [nsRouterLink]="['/dishdetail', dish.id]">
