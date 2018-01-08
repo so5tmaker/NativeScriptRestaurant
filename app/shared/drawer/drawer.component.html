@@ -27,7 +27,7 @@
     </GridLayout>
     <GridLayout class="sidedrawer-list-item" rows="*" columns="50, *" orientation="horizontal" [nsRouterLink]="['/reservation']"
         clearHistory="true">
-        <Label row="0" col="0" class="sidedrawer-list-item-text fa" text="'fa-cutlery' | fonticon"></Label>
+        <Label row="0" col="0" class="sidedrawer-list-item-text fa" [text]="'fa-cutlery' | fonticon"></Label>
         <Label row="0" col="1" class="sidedrawer-list-item-text" text="Reserve Table"></Label>
     </GridLayout>
 </StackLayout>
