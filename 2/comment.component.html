@@ -1,0 +1,19 @@
+<StackLayout class="modal-view-style">
+      <StackLayout [formGroup]="commentForm">
+            <Label class="h1" text="Add Comment" textWrap="true"></Label>
+            <GridLayout class="m-15" rows="auto auto" columns="50 25 * 25">
+                  <Label class="h3" text="Rating:" textWrap="true" row="0" col="0"></Label>
+                  <Label class="h3 text-right" text="1" textWrap="true" row="0" col="1"></Label>
+                  <Slider minValue="1" maxValue="5" formControlName="rating" row="0" col="2"></Slider>
+                  <Label class="h3 text-left" text="5" textWrap="true" row="0" col="3"></Label>
+            </GridLayout>
+            <GridLayout class="m-15" rows="auto auto" columns="auto *">
+                  <Label class="h3" VerticalAlignment="center" text="Comment:" row="0" col="0"></Label>
+                  <TextField class="body" formControlName="comment" text="" maxLength="50" row="0" col="1"></TextField>
+                  <Label class="h3" text="Author:" row="1" col="0"></Label>
+                  <TextField class="body" formControlName="author" text="" maxLength="50" row="1" col="1"></TextField>
+            </GridLayout>
+
+            <Button class="btn btn-primary btn-active" text="submit" (tap)="submit()"></Button>
+      </StackLayout>
+</StackLayout>

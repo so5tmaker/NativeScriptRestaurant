@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewContainerRef } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish.service';
@@ -7,7 +7,11 @@ import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Toasty } from 'nativescript-toasty';
+import { action } from "ui/dialogs";
 import 'rxjs/add/operator/switchMap';
+
+import { CommentComponent } from "../comment/comment.component";
+import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
 
 @Component({
   selector: 'app-dishdetail',
@@ -29,7 +33,13 @@ export class DishdetailComponent implements OnInit {
     private fonticon: TNSFontIconService,
     private route: ActivatedRoute,
     private routerExtensions: RouterExtensions,
-    @Inject('BaseURL') private BaseURL) { }
+    private modalService: ModalDialogService,
+    private vcRef: ViewContainerRef,
+    @Inject('BaseURL') private BaseURL) {
+
+
+
+  }
 
   ngOnInit() {
     this.route.params
@@ -58,4 +68,41 @@ export class DishdetailComponent implements OnInit {
   goBack(): void {
     this.routerExtensions.back();
   }
+
+  displayActionDialog() {
+    let options = {
+      title: "Actions",
+      message: "Choose your action",
+      cancelButtonText: "Cancel",
+      actions: ["Add to Favorites", "Add Comment"]
+    };
+
+    action(options).then((result) => {
+      console.log(result);
+      if (result == "Add to Favorites") {
+        this.addToFavorites();
+      } else if (result == "Add Comment") {
+        this.createModalView();
+      }
+    });
+  }
+
+  createModalView() {
+
+    let options: ModalDialogOptions = {
+      viewContainerRef: this.vcRef,
+      fullscreen: false
+    };
+
+    this.modalService.showModal(CommentComponent, options)
+      .then((result: any) => {
+        console.log('Before: ' + this.dish.comments.length);
+        console.log(result);
+        this.comment = result;
+        this.dish.comments.push(result);
+        console.log('After: ' + this.dish.comments.length);
+      });
+
+  }
+
 }

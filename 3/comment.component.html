@@ -1,0 +1,54 @@
+<StackLayout class="modal-view-style">
+  <GridLayout rows="auto auto auto" columns="auto auto auto" [formGroup]="commentForm">
+    <Label class="h3 m-15" row="0" col="0" text="Your Name" textWrap="true"></Label>
+    <TextField
+      class="input input-border"
+      id="author"
+      hint="Your name"
+      [text]=""
+      (textChange)="onNameChange($event)"
+      row="0"
+      col="1"
+      formControlName="author">
+    </TextField>
+    <Label class="h3 m-15" row="1" col="0" text="Rating" textWrap="true"></Label>
+    <Slider
+      row="1"
+      col="1"
+      value="5"
+      ([ngModel])="slider"
+      minValue="1"
+      maxValue="5"
+      formControlName="rating">
+    </Slider>
+    <Label class="h3 m-15" row="2" col="0" text="Your Comments" textWrap="true"></Label>
+    <TextField
+      class="input input-border"
+      id="name"
+      hint="Your comments"
+      (textChange)="onCommentChange($event)"
+      row="2"
+      col="1"
+      formControlName="comment">
+    </TextField>
+  </GridLayout>
+  <Button class="btn btn-primary btn-active" text="submit" (tap)="submitComment()"></Button>
+</StackLayout>
+
+
+
+
+
+
+
+
+<!-- <StackLayout class="modal-view-style">
+  <StackLayout [visibility]="!(isDateTime) ? 'visible': 'collapsed'">
+    <ListPicker id="guestPicker" [items]="guestArray" selectedIndex="0" class="p-15"></ListPicker>
+  </StackLayout>
+  <StackLayout [visibility]="isDateTime ? 'visible': 'collapsed'">
+    <DatePicker id="datePicker"></DatePicker>
+    <TimePicker id="timePicker"></TimePicker>
+  </StackLayout>
+  <Button class="btn btn-primary btn-active" text="submit" (tap)="submit()"></Button>
+</StackLayout> -->
