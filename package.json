@@ -25,6 +25,7 @@
     "allow-publish": "^1.0.4",
     "font-awesome": "^4.7.0",
     "nativescript-angular": "~5.0.0",
+    "nativescript-couchbase": "^1.0.18",
     "nativescript-ngx-fonticon": "^4.0.0",
     "nativescript-pro-ui": "^3.3.0",
     "nativescript-theme-core": "~1.0.4",
