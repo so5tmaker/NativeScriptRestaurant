@@ -5,6 +5,12 @@ import { Switch } from 'ui/switch';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
 import { ReservationModalComponent } from "../reservationmodal/reservationmodal.component";
+import { Animation, AnimationDefinition } from "ui/animation";
+import { View } from "ui/core/view";
+import { Color } from 'color';
+import * as enums from "ui/enums";
+import { Page } from "ui/page";
+import { CouchbaseService } from '../services/couchbase.service';
 
 @Component({
     selector: 'app-reservation',
@@ -14,11 +20,21 @@ import { ReservationModalComponent } from "../reservationmodal/reservationmodal.
 export class ReservationComponent extends DrawerPage implements OnInit {
 
     reservation: FormGroup;
+    showList: boolean = false;
+
+    formLayout: View;
+    listLayout: View;
+    reservationValue: null;
+
+    reservations: Array<number>;
+    docId: string = "reservations";
 
     constructor(private changeDetectorRef: ChangeDetectorRef,
         private formBuilder: FormBuilder,
-        private modalService: ModalDialogService, 
-        private vcRef: ViewContainerRef) {
+        private modalService: ModalDialogService,
+        private vcRef: ViewContainerRef,
+        private page: Page,
+        private couchbaseService: CouchbaseService) {
         super(changeDetectorRef);
 
         this.reservation = this.formBuilder.group({
@@ -26,6 +42,11 @@ export class ReservationComponent extends DrawerPage implements OnInit {
             smoking: false,
             dateTime: ['', Validators.required]
         });
+
+        this.reservationValue = this.reservation.value;
+
+        this.reservations = [];
+
     }
 
     ngOnInit() {
@@ -65,16 +86,54 @@ export class ReservationComponent extends DrawerPage implements OnInit {
         this.modalService.showModal(ReservationModalComponent, options)
             .then((result: any) => {
                 if (args === "guest") {
-                    this.reservation.patchValue({guests: result});
+                    this.reservation.patchValue({ guests: result });
                 }
                 else if (args === "date-time") {
-                    this.reservation.patchValue({ dateTime: result});
+                    this.reservation.patchValue({ dateTime: result });
                 }
             });
 
     }
 
     onSubmit() {
-        console.log(JSON.stringify(this.reservation.value));
+        this.formLayout = <View>this.page.getViewById<View>("formLayout");
+        this.listLayout = <View>this.page.getViewById<View>("listLayout");
+        this.reservationValue = this.reservation.value;
+        this.showList = true;
+        this.animateForm();
+        
+        let doc = this.couchbaseService.getDocument(this.docId);
+        if (doc == null) {
+            console.log("This is the first reservation");
+            this.couchbaseService.createDocument({ "reservations": this.reservationValue }, this.docId);
+            console.log(JSON.stringify(this.couchbaseService.getDocument(this.docId)));
+        }
+        else {
+            this.reservations.push(doc.reservations);
+            this.reservations.push(this.reservationValue);
+            this.couchbaseService.updateDocument(this.docId, { "reservations": this.reservations });
+            console.log(JSON.stringify(this.couchbaseService.getDocument(this.docId)));
+        }
     }
+
+    animateForm() {
+        this.listLayout.animate({
+            scale: { x: 0, y: 0 },
+            opacity: 0,
+            duration: 0
+        });
+        this.formLayout.animate({
+            scale: { x: 0, y: 0 },
+            opacity: 0,
+            duration: 500
+        })
+            .then(() => {
+                this.listLayout.animate({
+                    scale: { x: 1, y: 1 },
+                    opacity: 1,
+                    duration: 500
+                })
+            });
+    }
+
 }
