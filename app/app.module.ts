@@ -21,6 +21,7 @@ import { ReservationModalComponent } from "./reservationmodal/reservationmodal.c
 import { CommentComponent } from "./comment/comment.component";
 
 import { DishService } from './services/dish.service';
+import { UserAuthComponent } from "./userauth/userauth.component"; 
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { FavoriteService } from './services/favorite.service';
@@ -60,7 +61,8 @@ import { baseURL } from './shared/baseurl';
         FavoritesComponent,
         ReservationComponent,
         ReservationModalComponent,
-        CommentComponent
+        CommentComponent,
+        UserAuthComponent
     ],
     entryComponents: [ReservationModalComponent, CommentComponent],
     providers: [

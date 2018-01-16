@@ -9,9 +9,11 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { UserAuthComponent } from "./userauth/userauth.component"; 
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
+    { path: "auth", component: UserAuthComponent },
     { path: "home", component: HomeComponent },
     { path: "about", component: AboutComponent },
     { path: "menu", component: MenuComponent },
