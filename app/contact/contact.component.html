@@ -21,7 +21,8 @@
                         Fax: +852 8765 4321
                         Email:confusion@food.net" textWrap="true"></Label>
                         <GridLayout orientation="horizontal" rows="*" columns="*, *" class="m-t-20">
-                            <Button row="0" col="0" [text]="('fa-phone' | fonticon) + ' Call'" class="btn btn-rounded-sm btn-outline no-border fa "></Button>
+                            <Button row="0" col="0" [text]="('fa-phone' | fonticon) + ' Call'" class="btn btn-rounded-sm btn-outline no-border fa " 
+                                (tap)="callRestaurant()"></Button>
                             <Button row="0" col="1" [text]="('fa-envelope-o' | fonticon) + ' Email'" class="btn btn-rounded-sm btn-outline no-border fa"
                                 (tap)="sendEmail()"></Button>
                         </GridLayout>
